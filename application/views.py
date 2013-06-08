@@ -31,24 +31,16 @@ cache = Cache(app)
 
 
 
-##### My views ######
-
-db = {
-    'rushi': {'password': 'rushipass',
-              'metadata': None,
-              'activated': True,
-              'email': 'rushi.agr@gmail.com'},
-    'rushi2': {'password': 'rushipass2',
-               'metadata': None,
-               'activated': True,
-               'email': 'rushi2email'}
-}
-
-
 
 def index():
-    if 'username' in session:
-        return 'Logged in as %s' % escape(session['username'])
+    if request.method == 'POST':
+        logging.critical(request.form.get('inputEmail'))
+        if (request.form.get('inputEmail')=='rushi'
+            and request.form.get('inputPassword')=='agrawal'):
+            return 'successful!'
+        return 'fail!'
+#    if 'username' in session:
+#        return 'Logged in as %s' % escape(session['username'])
     return render_template('index.html')
 
 def login():

@@ -22,10 +22,6 @@ app.add_url_rule('/signup', 'signup', view_func=views.signup, methods=['GET', 'P
 app.add_url_rule('/logout', 'logout', view_func=views.logout)
 app.add_url_rule('/profile/<user>', 'profile_visit_handler', view_func=views.profile_visit_handler)
 
-app.add_url_rule('/ndblogin', 'ndblogin', view_func=views.ndblogin, methods=['GET', 'POST'])
-app.add_url_rule('/ndbfind', 'ndbfind', view_func=views.ndbfind, methods=['GET', 'POST'])
-app.add_url_rule('/ndbindex', 'ndbindex', view_func=views.ndbindex)
-
 
 # Home page
 #app.add_url_rule('/', 'home', view_func=views.home)

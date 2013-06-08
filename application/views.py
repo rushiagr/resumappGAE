@@ -23,7 +23,7 @@ from google.appengine.ext import ndb
 from application import app
 from decorators import login_required, admin_required
 from forms import ExampleForm
-from models import ExampleModel, CredentialsModel, DBTestingModel
+from models import ExampleModel, CredentialsModel
 
 
 # Flask-Cache (configured to use App Engine Memcache API)

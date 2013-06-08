@@ -38,6 +38,8 @@ def index():
         if (request.form.get('inputEmail')=='rushi'
             and request.form.get('inputPassword')=='agrawal'):
             return 'successful!'
+        flash('Incorrect login. Please try again..', 'error')
+        return redirect(url_for('index'))
         return 'fail!'
 #    if 'username' in session:
 #        return 'Logged in as %s' % escape(session['username'])

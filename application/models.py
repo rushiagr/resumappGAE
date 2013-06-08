@@ -3,6 +3,13 @@ models.py
 
 App Engine datastore models
 
+
+Tables:
+
+UserInfo
+    Email   string, unique, required(not null)
+    Password    string, required(not null)
+    Timestamp   datetime, autoadd
 """
 
 

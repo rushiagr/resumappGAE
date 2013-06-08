@@ -30,64 +30,6 @@ from models import ExampleModel, CredentialsModel, DBTestingModel
 cache = Cache(app)
 
 
-#### NDB TEST VIEW ########
-
-"""
-Complete working snippet of code which involves NDB datastore access.
-/ndbindex:
-    Lists out all the users logged in
-
-/ndblogin
-    Allows a new user to log in
-
-/ndbfind
-    Allows someone to find if a user with provided username is present in DB or not
-    Prints 'present' if username present in database/datastore, or absent if not.
-"""
-
-
-def ndbindex():
-    persons = DBTestingModel.query().fetch()
-    ansstring = 'Users who logged into this snippet:<br> '
-    for person in persons:
-        ansstring += '(' + person.username + ', ' + person.password + ')<br>'
-    return ansstring
-
-def ndbfind():
-    if request.method == 'POST':
-        #NOTE(rushiagr): present is a list
-        present = DBTestingModel.gql("WHERE username = :uname", uname=request.form['username']).fetch()
-        #NOTE(rushiagr): the following commented line explains how to write the same query using NDB model query
-        #present = NDBModel.query(NDBModel.username == request.form['username']).fetch()
-        if present and present[0].username == request.form['username']:
-            return 'present'
-        return 'absent'
-    else:
-        return '''
-            <form action="" method="post">
-                <p><input type=text name=username>
-                <p><input type=submit value=Find>
-            </form>                
-                '''
-
-def ndblogin():
-    if request.method == 'POST':
-        person = DBTestingModel(
-            username = request.form['username'],
-            password = request.form['password']
-        )
-        person.put()
-        return redirect('ndbindex')
-    else:
-        return '''
-            <form action="" method="post">
-                <p><input type=text name=username>
-                <p><input type=password name=password>
-                <p><input type=submit value=Login>
-            </form>
-        '''
-        
-
 
 ##### My views ######
 

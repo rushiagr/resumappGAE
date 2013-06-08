@@ -24,7 +24,7 @@ class CredentialsModel(ndb.Model):
     email = ndb.StringProperty(required=True)
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
     
-class NDBModel(ndb.Model):
+class DBTestingModel(ndb.Model):
     username = ndb.StringProperty(required=True)
     password = ndb.StringProperty(required=True)
     timestamp = ndb.DateTimeProperty(auto_now_add=True)

@@ -16,7 +16,7 @@ from application import views
 app.add_url_rule('/_ah/warmup', 'warmup', view_func=views.warmup)
 
 ###### My views ######
-app.add_url_rule('/', 'index', view_func=views.index)
+app.add_url_rule('/', 'index', view_func=views.index, methods=['GET', 'POST'])
 app.add_url_rule('/login', 'login', view_func=views.login, methods=['GET', 'POST'])
 app.add_url_rule('/signup', 'signup', view_func=views.signup, methods=['GET', 'POST'])
 app.add_url_rule('/logout', 'logout', view_func=views.logout)

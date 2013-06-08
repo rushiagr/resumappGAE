@@ -49,7 +49,7 @@ db = {
 def index():
     if 'username' in session:
         return 'Logged in as %s' % escape(session['username'])
-    return render_template('landing_page.html')
+    return render_template('index.html')
 
 def login():
     if request.method == 'POST':

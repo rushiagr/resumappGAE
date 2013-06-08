@@ -1,29 +1,33 @@
+{% extends "base.html" %}
+
 {% block content %}
 <div class="row">
     <!--Sign-in form-->
-    <form class="form-horizontal">
-        <div class="control-group">
-            <label class="control-label" for="inputUsername">Username</label>
-            <div class="controls">
-                <input type="text" id="inputUsername" placeholder="Desired username">
-            </div>
-        </div>
+    <form class="form-horizontal" method="post">
+
+        <!--<div class="control-group">-->
+        <!--    <label class="control-label" for="inputUsername">Username</label>-->
+        <!--    <div class="controls">-->
+        <!--        <input type="text" id="inputUsername" placeholder="Desired username">-->
+        <!--    </div>-->
+        <!--</div>-->
+
         <div class="control-group">
             <label class="control-label" for="inputEmail">Email</label>
             <div class="controls">
-                <input type="email" id="inputEmail" placeholder="Email">
+                <input type="email" name="inputEmail" placeholder="Email">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputPassword">Password</label>
             <div class="controls">
-                <input type="password" id="inputPassword" placeholder="Password">
+                <input type="password" name="inputPassword" placeholder="Password">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputPasswordRepeat">Re-enter the password</label>
             <div class="controls">
-                <input type="password" id="inputPasswordRepeat" placeholder="Password once more">
+                <input type="password" name="inputPasswordRepeat" placeholder="Password once more">
             </div>
         </div>
         <div class="control-group">

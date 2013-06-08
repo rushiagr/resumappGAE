@@ -25,6 +25,8 @@
 
     {% include 'includes/resumapp_header.html' %} {# My Resumapp header #}
 
+    {% block session_info %}{% endblock %}
+    
     <div class="container" id="maincontent">
         {% include 'includes/flash_message.html' %} {# page-level feedback notices #}
         <div id="body_content">

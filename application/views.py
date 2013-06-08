@@ -23,7 +23,7 @@ from google.appengine.ext import ndb
 from application import app
 from decorators import login_required, admin_required
 from forms import ExampleForm
-from models import ExampleModel, CredentialsModel
+from models import ExampleModel, CredentialsModel, UserInfo
 
 
 # Flask-Cache (configured to use App Engine Memcache API)
@@ -34,16 +34,49 @@ cache = Cache(app)
 
 def index():
     if request.method == 'POST':
-        logging.critical(request.form.get('inputEmail'))
-        if (request.form.get('inputEmail')=='rushi'
-            and request.form.get('inputPassword')=='agrawal'):
-            return 'successful!'
-        flash('Incorrect login. Please try again..', 'error')
-        return redirect(url_for('index'))
-        return 'fail!'
+        user_email = request.form.get('inputEmail')
+        user_password = request.form.get('inputPassword')
+
+#        logging.critical(user_email, 'logged in')
+        
+        status = credentials_valid_and_user_registered(user_email, user_password)
+        
+        if status is False:
+            flash('Incorrect login. Please try again.', 'error')
+            return redirect(url_for('index'))
+
+        return 'successful!'
 #    if 'username' in session:
 #        return 'Logged in as %s' % escape(session['username'])
     return render_template('index.html')
+
+
+def credentials_valid_and_user_registered(email, password):
+    """
+    Only returns true if the email exists in the datastore, and the password is correct.
+    """
+    #dummy value for checking
+#    if (email=='rushi.agr@gmail.com' and password=='agrawal'):
+#        user = UserInfo(
+#            email=email,
+#            password=password,
+#            id=email
+#        )
+#        user_from_db = UserInfo.get_by_id(email)
+#        if user_from_db is None:
+#            user.put()
+#        return True
+    
+    #TODO(rushiagr): put all the server-side validation code here
+    
+    user = UserInfo.get_by_id(email)
+#    logging.info(user.email)
+    if user is not None and user.password == password:
+        return True
+    return False
+
+
+
 
 def login():
     if request.method == 'POST':

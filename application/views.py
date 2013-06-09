@@ -23,7 +23,7 @@ from google.appengine.ext import ndb
 from application import app
 from decorators import login_required, admin_required
 from forms import ExampleForm
-from models import ExampleModel, CredentialsModel, UserInfo
+from models import ExampleModel, CredentialsModel, UserInfo, UserPersonalInfo, Education, Experience, Projects
 
 
 # Flask-Cache (configured to use App Engine Memcache API)
@@ -53,29 +53,94 @@ def index():
 
 def credentials_valid_and_user_registered(email, password):
     """
-    Only returns true if the email exists in the datastore, and the password is correct.
+    Only returns true if the email exists in the datastore,
+    and the password is correct.
     """
-    #dummy value for checking
-#    if (email=='rushi.agr@gmail.com' and password=='agrawal'):
-#        user = UserInfo(
-#            email=email,
-#            password=password,
-#            id=email
-#        )
-#        user_from_db = UserInfo.get_by_id(email)
-#        if user_from_db is None:
-#            user.put()
-#        return True
-    
     #TODO(rushiagr): put all the server-side validation code here
     
     user = UserInfo.get_by_id(email)
-#    logging.info(user.email)
     if user is not None and user.password == password:
         return True
     return False
 
+def signup():
+    if request.method == 'POST':
+        email = request.form.get('inputEmail')
+        password = request.form.get('inputPassword')
+        password_repeat = request.form.get('inputPasswordRepeat')
+        
+        if password != password_repeat:
+            flash('Password not repeated exactly!', 'error')
+            return redirect(url_for('signup'))
+        
+        if email_already_in_db(email):
+            flash('Email already exists in our database!', 'error')
+            return redirect(url_for('signup'))
 
+        register_new_user(email, password)
+        session['userEmail'] = email
+        return redirect(url_for('dash'))
+
+    elif request.method == 'GET':
+        return render_template('signup.html')
+
+def email_already_in_db(email):
+    user = UserInfo.get_by_id(email)
+    if user is not None:
+        return True
+    return False
+
+def register_new_user(email, password):
+    user = UserInfo(
+        email=email,
+        password=password,
+        id=email
+    )
+    user.put()
+
+
+def dash():
+    if request.method == 'POST':
+        #take data from form and put into database
+        #TODO(rushiagr): do session expire check here
+        user_personal_info = UserPersonalInfo(
+            email=session.get('userEmail'),
+            name=request.form.get('name'),
+            title=request.form.get('position'),
+            location=request.form.get('location'),
+            summary=request.form.get('summary'),
+        )
+        user_personal_info.put()
+        experience = Experience(
+            email=session.get('userEmail'),
+            position=request.form.get('experience_role'),
+            description=request.form.get('experience_description'),
+        )
+        experience.put()
+        projects = Projects(
+            email=session.get('userEmail'),
+            project_name=request.form.get('project_name'),
+            description=request.form.get('project_description'),
+        )
+        projects.put()
+        education = Education(
+            email=session.get('userEmail'),
+            duration=request.form.get('education_duration'),
+            program=request.form.get('education_program'),
+            institution=request.form.get('education_institution'),
+            score_achieved=request.form.get('education_score'),
+            score_out_of='10',
+        )
+        education.put()
+        return render_template('profile.html',
+                               session_user=session.get('userEmail'),
+                               user_personal_info=user_personal_info,
+                               experience=experience,
+                               projects=projects,
+                               education=education)
+        
+    elif request.method == 'GET':
+        return render_template('edit_profile.html', session_user=session.get('userEmail'))
 
 
 def login():
@@ -97,24 +162,6 @@ def login():
         </form>
     '''
 
-def signup():
-    if request.method == 'POST':
-        if username_or_email_already_exists(request.form):
-            return "We've detected an account with the credentials already present. Please login in such case"
-        else:
-            register_new_user(request.form)
-#            print 'registered new user'
-            session['username'] = request.form['username']
-            return redirect(url_for('index'))
-    return '''
-        <form action="" method="post">
-            <p>username<input type=text name=username>
-            <p>password<input type=password name=password>
-            <p>email<input type=email name=email>
-            <p><input type=submit value=Login>
-        </form>
-    '''
-
 
 def logout():
     # remove the username from the session if it's there
@@ -132,18 +179,6 @@ def profile_visit_handler(user):
                 return full_profile(user)
         return public_profile(user)
 
-
-
-
-def register_new_user(form):
-    username = form.get('username', None)
-    password = form.get('password', None)
-    email = form.get('email', None)
-    credentials = CredentialsModel()
-    credentials.username = username
-    credentials.password = password
-    credentials.email = email
-    credentials.put()
     
 
 def username_or_email_already_exists(form):

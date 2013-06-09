@@ -6,7 +6,7 @@
 
 <div class="row">
     <!--Sign-in form-->
-    <form class="form-horizontal">
+    <form class="form-horizontal" method="post">
         
         <!--Header info, like name, position and location-->
         <div><h3>Header Information</h3></div>
@@ -14,29 +14,29 @@
         <div class="control-group">
             <label class="control-label" for="name">Your full name</label>
             <div class="controls">
-                <input type="text" id="inputName" placeholder="Rushi Agrawal">
+                <input type="text" name="name" placeholder="Rushi Agrawal">
             </div>
         </div>
         <!--position-->
         <div class="control-group">
             <label class="control-label" for="position">Your position, or year of university</label>
             <div class="controls">
-                <input type="text" id="inputPosition" placeholder="OpenStack Developer">
+                <input type="text" name="position" placeholder="OpenStack Developer">
             </div>
         </div>
         <!--location-->
         <div class="control-group">
-            <label class="control-label" for="location">Your specialization/job location</label>
+            <label class="control-label" for="location">Your specialization</label>
             <div class="controls">
-                <input type="text" id="inputLocation" placeholder="Bengaluru Area, India">
+                <input type="text" name="location" placeholder="Bengaluru Area, India">
             </div>
         </div>
         
         <!--Summary-->
         <div class="control-group">
-            <label class="control-label" for="location">Summary</label>
+            <label class="control-label" for="summary">Summary</label>
             <div class="controls">
-                <textarea rows="6" id="inputLocation" placeholder="I work as an engineer primarily
+                <textarea rows="6" name="summary" placeholder="I work as an engineer primarily
                 involved in developing software to integrate NetApp software products with Cinder -
                 the block storage service for OpenStack - the opensource, massively scalable cloud
                 operating system. I personally enjoy the OpenSource work and the community responsibility
@@ -49,16 +49,16 @@ hands at implementing some funky idea or the other."></textarea>
         <div><h3>Experience</h3></div>
         <!--role-->
         <div class="control-group">
-            <label class="control-label" for="role">The job role</label>
+            <label class="control-label" for="experience_role">The job role</label>
             <div class="controls">
-                <input type="text" id="inputRole" placeholder="Systems Engineer">
+                <input type="text" name="experience_role" placeholder="Systems Engineer">
             </div>
         </div>
         <!--Description of the role-->
         <div class="control-group">
-            <label class="control-label" for="roleDescription">Description</label>
+            <label class="control-label" for="experience_description">Description</label>
             <div class="controls">
-                <textarea rows="6" id="inputLocation" placeholder="Involved in development
+                <textarea rows="6" name="experience_description" placeholder="Involved in development
                 of block-storage drivers for OpenStack - the most popular opensource cloud
                 platform. The drivers allows NetApp controllers to provide storage service 
                 (SAN and NAS) for OpenStack."></textarea>
@@ -76,16 +76,16 @@ hands at implementing some funky idea or the other."></textarea>
         <div><h3>Project</h3></div>
         <!--Project title-->
         <div class="control-group">
-            <label class="control-label" for="projectTitle">Title of the project</label>
+            <label class="control-label" for="project_name">Title of the project</label>
             <div class="controls">
-                <input type="text" id="projectTitle" placeholder="Hadoop on OpenStack">
+                <input type="text" name="project_name" placeholder="Hadoop on OpenStack">
             </div>
         </div>
         <!--Description of the project-->
         <div class="control-group">
-            <label class="control-label" for="roleDescription">Description</label>
+            <label class="control-label" for="project_description">Description</label>
             <div class="controls">
-                <textarea rows="6" id="roleDescription" placeholder="Tried to run Hadoop clusters on OpenStack setup to create on-demand Hadoop compute clusters blah"></textarea>
+                <textarea rows="6" name="project_description" placeholder="Tried to run Hadoop clusters on OpenStack setup to create on-demand Hadoop compute clusters blah"></textarea>
             </div>
         </div>
 
@@ -103,27 +103,27 @@ hands at implementing some funky idea or the other."></textarea>
         <!--Score-->
         
         <div class="control-group">
-            <label class="control-label" for="educationDuration">Duration of the programme</label>
+            <label class="control-label" for="education_duration">Duration of the programme</label>
             <div class="controls">
-                <input type="text" id="educationDuration" placeholder="2008-2012">
+                <input type="text" name="education_duration" placeholder="2008-2012">
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="educationProgramme">Name of the programme</label>
+            <label class="control-label" for="education_program">Name of the programme</label>
             <div class="controls">
-                <input type="text" id="educationProgramme" placeholder="Bachelor of Technology in Computer Science">
+                <input type="text" name="education_program" placeholder="Bachelor of Technology in Computer Science">
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="educationInstitution">Institution</label>
+            <label class="control-label" for="education_institution">Institution</label>
             <div class="controls">
-                <input type="text" id="educationInstitution" placeholder="IIT Hyderabad">
+                <input type="text" name="education_institution" placeholder="IIT Hyderabad">
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="educationScore">Score (out of 10)</label>
+            <label class="control-label" for="education_score">Score (out of 10)</label>
             <div class="controls">
-                <input type="text" id="educationScore" placeholder="7.71">
+                <input type="text" name="education_score" placeholder="7.71">
             </div>
         </div>
 
